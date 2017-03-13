@@ -30,6 +30,7 @@ RUN \
 # install runtime packages
  apt-get install -y \
 	dbus \
+	iproute2 \
 	iputils-ping \
 	libxml2 && \
 

@@ -8,6 +8,8 @@ LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DA
 
 # environment variables
 ARG DEBIAN_FRONTEND="noninteractive"
+ENV DVBLINK_CONFIG_DIR="/config" \
+DVBLINK_COMMON_DIR="/config"
 
 # package versions
 ARG DVBLINK_DLINK="http://download.dvblogic.com/9283649d35acc98ccf4d0c2287cdee62/"
@@ -31,6 +33,7 @@ RUN \
 
 # install runtime packages
  apt-get install -y \
+	avahi-daemon \
 	dbus \
 	iproute2 \
 	iputils-ping \

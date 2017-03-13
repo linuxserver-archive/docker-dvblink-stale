@@ -30,6 +30,7 @@ RUN \
 # install runtime packages
  apt-get install -y \
 	dbus \
+	iputils-ping \
 	libxml2 && \
 
 # compile gnu libiconv

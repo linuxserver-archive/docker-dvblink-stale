@@ -10,6 +10,8 @@ LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DA
 ARG DEBIAN_FRONTEND="noninteractive"
 
 # package versions
+ARG DVBLINK_DLINK="http://download.dvblogic.com/9283649d35acc98ccf4d0c2287cdee62/"
+ARG LIBICONV_VERSION="1.15"
 ARG PYTHON_VERSION="2.6.9"
 
 # build packages as variable
@@ -39,7 +41,7 @@ RUN \
 	/tmp/libiconv-src && \
  curl -o \
  /tmp/libiconv.tar.gz -L \
-	https://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.15.tar.gz && \
+	"https://ftp.gnu.org/pub/gnu/libiconv/libiconv-${LIBICONV_VERSION}.tar.gz" && \
  tar xf \
  /tmp/libiconv.tar.gz -C \
 	/tmp/libiconv-src --strip-components=1 && \
@@ -74,7 +76,7 @@ RUN \
 	/usr/share/applications && \
  curl -o \
  /tmp/dvblink.deb -L \
-	http://download.dvblogic.com/9283649d35acc98ccf4d0c2287cdee62/ && \
+	"${DVBLINK_DLINK}" && \
  dpkg -i /tmp/dvblink.deb && \
 
 # cleanup

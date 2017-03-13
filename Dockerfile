@@ -34,7 +34,8 @@ RUN \
 	dbus \
 	iproute2 \
 	iputils-ping \
-	libxml2 && \
+	libxml2 \
+	openssh-server && \
 
 # compile gnu libiconv
  mkdir -p \

@@ -2,7 +2,8 @@
 
 # make folders
 mkdir -p \
-	/var/run/dbus
+	/var/run/dbus \
+	/var/run/sshd
 
 # delete existing pid if found
 [[ -e /var/run/dbus/pid ]] && \

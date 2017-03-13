@@ -8,6 +8,12 @@ mkdir -p \
 [[ -e /var/run/dbus/pid ]] && \
 	rm -f /var/run/dbus/pid
 
+# copy config
+[[ ! -e /config/dvblink_settings.xml ]] && \
+	cp /usr/local/bin/dvblink/config/dvblink_settings.xml /config/dvblink_settings.xml
+[[ ! -e /config/dvblink_configuration.xml ]] && \
+	cp /usr/local/bin/dvblink/config/dvblink_configuration.xml /config/dvblink_configuration.xml
+
 # permissions
 chown messagebus:messagebus \
 	/var/run/dbus

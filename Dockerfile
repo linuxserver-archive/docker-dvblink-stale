@@ -33,10 +33,11 @@ RUN \
 
 # install runtime packages
  apt-get install -y \
-	avahi-daemon \
 	dbus \
 	iproute2 \
 	iputils-ping \
+	libc-ares2 \
+	libcurl3 \
 	libxml2 && \
 
 # compile gnu libiconv
@@ -94,3 +95,6 @@ RUN \
 	/tmp/* \
 	/var/lib/apt/lists/* \
 	/var/tmp/*
+
+# add local files
+COPY root/ /

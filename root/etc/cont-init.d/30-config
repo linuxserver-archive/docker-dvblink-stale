@@ -9,10 +9,14 @@ mkdir -p \
 	rm -f /var/run/dbus/pid
 
 # copy config
-[[ ! -e /config/dvblink_settings.xml ]] && \
-	cp /usr/local/bin/dvblink/config/dvblink_settings.xml /config/dvblink_settings.xml
-[[ ! -e /config/dvblink_configuration.xml ]] && \
-	cp /usr/local/bin/dvblink/config/dvblink_configuration.xml /config/dvblink_configuration.xml
+PREV_DIR=$(pwd)
+
+	cd /usr/local/bin/dvblink/config || exit
+	shopt -s globstar nullglob
+	for i in *
+ 	do
+	[[ ! -e "/config/${i}" ]] && cp -v "${i}" "/config/${i}"
+	done
 
 # permissions
 chown messagebus:messagebus \

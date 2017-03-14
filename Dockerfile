@@ -14,16 +14,14 @@ DVBLINK_COMMON_DIR="/config"
 # package versions
 ARG DVBLINK_DLINK="http://download.dvblogic.com/9283649d35acc98ccf4d0c2287cdee62/"
 ARG LIBICONV_VERSION="1.15"
-ARG PYTHON_VERSION="2.6.9"
 
 # build packages as variable
 ARG BUILD_PACKAGES="\
 	file \
 	g++ \
 	gcc \
-	libtool \
-	tcl-dev \
-	tk-dev"
+	libtool\
+	make"
 
 # install build packages
 RUN \
@@ -38,7 +36,8 @@ RUN \
 	iputils-ping \
 	libc-ares2 \
 	libcurl3 \
-	libxml2 && \
+	libxml2 \
+	python && \
 
 # compile gnu libiconv
  mkdir -p \
@@ -53,22 +52,6 @@ RUN \
  ./configure \
 	--prefix=/usr/local && \
  make && \
- make install && \
-
-# compile python 2.6
- mkdir -p \
-	/tmp/python-src && \
- curl -o \
- /tmp/python.tar.xz -L \
-	"https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz" && \
- tar xf \
- /tmp/python.tar.xz -C \
-	/tmp/python-src --strip-components=1 && \
- cd /tmp/python-src && \
- ./configure \
-	--enable-shared \
-	--enable-unicode=ucs4 && \
- make -j$(nproc) && \
  make install && \
 
 # uninstall build packages
@@ -87,13 +70,6 @@ RUN \
  mv /opt/DVBLink /defaults/DVBLink && \
 
 # cleanup
- find /usr/local -depth \
-	\( \
-	\( -type d -a -name test -o -name tests \) \
-	-o \
-	\( -type f -a -name '*.pyc' -o -name '*.pyo' \) \
-	\) -exec rm -rf '{}' + && \
-
  rm -rf \
 	/tmp/* \
 	/var/lib/apt/lists/* \

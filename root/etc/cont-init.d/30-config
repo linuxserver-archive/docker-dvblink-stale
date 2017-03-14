@@ -18,14 +18,14 @@ PREV_DIR=$(pwd)
 	shopt -s globstar nullglob
 	for i in *
  	do
-	[[ ! -e "/config/${i}" ]] && cp -v "${i}" "/config/${i}"
+	[[ ! -e /config/"${i}" ]] && cp -v "${i}" /config/"${i}"
 	done
 
 	cd /defaults/DVBLink || exit
 	shopt -s globstar nullglob
 	for i in *
  	do
-	[[ ! -e "/data/${i}" ]] && cp -prv "${i}" "/data/${i}"
+	[[ ! -e /data/"${i}" ]] && cp -prv "${i}" /data/"${i}"
 	done
 cd "${PREV_DIR}" || exit
 

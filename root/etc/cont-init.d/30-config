@@ -9,6 +9,8 @@ mkdir -p \
 	rm -f /var/run/dbus/pid
 
 # copy config
+chown -R abc:abc \
+	/defaults/DVBLink
 PREV_DIR=$(pwd)
 
 	cd /usr/local/bin/dvblink/config || exit
@@ -18,7 +20,22 @@ PREV_DIR=$(pwd)
 	[[ ! -e "/config/${i}" ]] && cp -v "${i}" "/config/${i}"
 	done
 
+	cd /defaults/DVBLink || exit
+	shopt -s globstar nullglob
+	for i in *
+ 	do
+	[[ ! -e "/data/${i}" ]] && cp -prv "${i}" "/data/${i}"
+	done
+cd ${PREV_DIR} || exit
+
+[[ ! -L /opt/DVBLink ]] && \
+ ln -s /data /opt/DVBLink
+
 # permissions
+chown -R abc:abc \
+	/config \
+	/usr/local/bin/dvblink
+
 chown messagebus:messagebus \
 	/var/run/dbus
 dbus-uuidgen --ensure

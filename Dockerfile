@@ -83,6 +83,9 @@ RUN \
 	"${DVBLINK_DLINK}" && \
  dpkg -i /tmp/dvblink.deb && \
 
+# configure dvblink
+ mv /opt/DVBLink /defaults/DVBLink && \
+
 # cleanup
  find /usr/local -depth \
 	\( \
@@ -98,3 +101,7 @@ RUN \
 
 # add local files
 COPY root/ /
+
+# ports and volumes
+EXPOSE 8100 39876
+VOLUME /config /data

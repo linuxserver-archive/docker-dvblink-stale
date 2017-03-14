@@ -1,3 +1,7 @@
 #!/usr/bin/with-contenv bash
 
-LD_LIBRARY_PATH=/usr/local/bin/dvblink/lib /usr/local/bin/dvblink/dvblink_server -command_line_mode
+export LD_LIBRARY_PATH=/usr/local/bin/dvblink/lib
+
+exec \
+	s6-setuidgid abc /usr/local/bin/dvblink/dvblink_server \
+	-command_line_mode

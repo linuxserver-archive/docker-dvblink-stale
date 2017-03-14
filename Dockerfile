@@ -13,50 +13,15 @@ DVBLINK_COMMON_DIR="/config"
 
 # package versions
 ARG DVBLINK_DLINK="http://download.dvblogic.com/9283649d35acc98ccf4d0c2287cdee62/"
-ARG LIBICONV_VERSION="1.15"
 
-# build packages as variable
-ARG BUILD_PACKAGES="\
-	file \
-	g++ \
-	gcc \
-	libtool\
-	make"
 
-# install build packages
+
+# install packages
 RUN \
- apt-get update && \
- apt-get install -y \
-	${BUILD_PACKAGES} && \
-
-# install runtime packages
  apt-get install -y \
 	dbus \
 	iproute2 \
-	iputils-ping \
-	libc-ares2 \
-	libcurl3 \
-	libxml2 \
-	python && \
-
-# compile gnu libiconv
- mkdir -p \
-	/tmp/libiconv-src && \
- curl -o \
- /tmp/libiconv.tar.gz -L \
-	"https://ftp.gnu.org/pub/gnu/libiconv/libiconv-${LIBICONV_VERSION}.tar.gz" && \
- tar xf \
- /tmp/libiconv.tar.gz -C \
-	/tmp/libiconv-src --strip-components=1 && \
- cd /tmp/libiconv-src && \
- ./configure \
-	--prefix=/usr/local && \
- make && \
- make install && \
-
-# uninstall build packages
- apt-get purge -y --auto-remove \
-	${BUILD_PACKAGES} && \
+	iputils-ping && \
 
 # install dvblink server
  mkdir -p \

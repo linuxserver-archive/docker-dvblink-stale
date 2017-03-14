@@ -26,7 +26,7 @@ PREV_DIR=$(pwd)
  	do
 	[[ ! -e "/data/${i}" ]] && cp -prv "${i}" "/data/${i}"
 	done
-cd ${PREV_DIR} || exit
+cd "${PREV_DIR}" || exit
 
 [[ ! -L /opt/DVBLink ]] && \
  ln -s /data /opt/DVBLink

@@ -18,6 +18,7 @@ ARG DVBLINK_DLINK="http://download.dvblogic.com/9283649d35acc98ccf4d0c2287cdee62
 
 # install packages
 RUN \
+ apt-get update && \
  apt-get install -y \
 	dbus \
 	iproute2 \

@@ -2,6 +2,7 @@
 
 # make folders
 mkdir -p \
+	/config/logs \
 	/var/run/dbus
 
 # delete existing pid if found
@@ -30,6 +31,18 @@ cd "${PREV_DIR}" || exit
 
 [[ ! -L /opt/DVBLink ]] && \
  ln -s /data /opt/DVBLink
+
+# configure logs
+declare -a log_files=("dvblink_reg.log" "dvblink_server.log" "dvblink_webserver.log")
+for log_link in "${log_files[@]}"
+do
+	[[ ! -e /config/logs/"${log_link}" ]] && \
+		touch /config/logs/"${log_link}"
+	[[ -f /usr/local/bin/dvblink/"${log_link}" ]] && \
+		rm /usr/local/bin/dvblink/"${log_link}"
+	[[ ! -L /usr/local/bin/dvblink/"${log_link}" ]] && \
+		ln -sf /config/logs/"${log_link}" /usr/local/bin/dvblink/"${log_link}"
+done
 
 # permissions
 chown -R abc:abc \

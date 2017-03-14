@@ -45,6 +45,8 @@ do
 done
 
 # permissions
+chown abc:abc \
+	/data
 chown -R abc:abc \
 	/config \
 	/usr/local/bin/dvblink
